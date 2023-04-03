@@ -430,8 +430,19 @@ const logout = () => {
                   <span>Navigator One</span>
                 </template>
                 <el-menu-item-group title="Group One">
-                  <el-menu-item index="1-1">item one</el-menu-item>
-                  <el-menu-item index="1-2">item two</el-menu-item>
+                  <el-menu-item index="1-1">
+                    <Link  :href="route('profile.show')">  
+                    Perfil
+                    </Link>
+                  </el-menu-item>
+                  <el-menu-item index="1-2">
+                    <Link 
+                      :href="route('site.contact')"
+                      :active="route().current('site.contact')"
+                    >
+                      Contato
+                    </Link>
+                  </el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group title="Group Two">
                   <el-menu-item index="1-3">item three</el-menu-item>
