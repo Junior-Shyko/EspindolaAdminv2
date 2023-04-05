@@ -32,95 +32,74 @@ const logout = () => {
 </script>
 
 <template>
-  <div v-app>
+  <div>
     <Head :title="title" />
 
     <Banner />
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <nav>
-        <v-card>
-          <v-layout>
-            <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
+      <v-app id="inspire">
+       
+        <v-navigation-drawer v-model="drawer">
+          <v-sheet color="grey-lighten-4" class="pa-4">
+            <v-avatar class="mb-4" color="grey-darken-1" size="64"></v-avatar>
 
-            <v-app-bar color="primary" prominent>
-              <v-app-bar-nav-icon
-                variant="text"
-                @click.stop="drawer = !drawer"
-              ></v-app-bar-nav-icon>
+            <div>john@google.com</div>
+          </v-sheet>
 
-              <v-toolbar-title>My files</v-toolbar-title>
+          <v-divider></v-divider>
 
-              <v-spacer></v-spacer>
+          <v-list>
+            <v-list-item v-for="[icon, text] in links" :key="icon" link>
+              <template v-slot:prepend>
+                <v-icon>{{ icon }}</v-icon>
+              </template>
 
-              <v-btn variant="text" icon="mdi-magnify"></v-btn>
+              <v-list-item-title>{{ text }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
 
-              <v-btn variant="text" icon="mdi-filter"></v-btn>
+        <v-main>
+          <v-container class="py-8 px-6" fluid>
+            <v-app-bar
+        color="teal-darken-4"
+        image="https://picsum.photos/1920/1080?random"
+      >
+        <template v-slot:image>
+          <v-img
+            gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+          ></v-img>
+        </template>
 
-              <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
-            </v-app-bar>
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            </template>
 
-            <v-navigation-drawer v-model="drawer" location="bottom" temporary>
-              <v-list :items="items"></v-list>
-            </v-navigation-drawer>
-          </v-layout>
-        </v-card>
-      </nav>
+            <v-app-bar-title>              
+              <Link :href="route('dashboard')">
+                Espindola Admin
+              </Link>
+            </v-app-bar-title>
 
-      <!-- Page Heading -->
-      <header v-if="$slots.header" class="bg-white dark:bg-gray-800 shadow">
-        <div class="max-w-7xl mx-auto py-3 px-1 sm:px-6 lg:px-8"></div>
-      </header>
+            <v-spacer></v-spacer>
 
-      <!-- Page Content -->
-      <main>
-        <v-row no-gutters>
-          <v-col cols="2" class="py-10">
-            <el-menu
-              active-text-color="#ffd04b"
-              background-color="#545c64"
-              class="el-menu-vertical-demo"
-              default-active="2"
-              text-color="#fff"
-              @open="handleOpen"
-              @close="handleClose"
-            >
-              <el-sub-menu index="1">
-                <template #title>
-                  <el-icon><location /></el-icon>
-                  <span>Navigator One</span>
-                </template>
-                <el-menu-item-group title="Group One">
-                  <el-menu-item index="1-1">item one</el-menu-item>
-                  <el-menu-item index="1-2">item two</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group Two">
-                  <el-menu-item index="1-3">item three</el-menu-item>
-                </el-menu-item-group>
-                <el-sub-menu index="1-4">
-                  <template #title>item four</template>
-                  <el-menu-item index="1-4-1">item one</el-menu-item>
-                </el-sub-menu>
-              </el-sub-menu>
-              <el-menu-item index="2">
-                <el-icon><icon-menu /></el-icon>
-                <span>Navigator Two</span>
-              </el-menu-item>
-              <el-menu-item index="3" disabled>
-                <el-icon><document /></el-icon>
-                <span>Navigator Three</span>
-              </el-menu-item>
-              <el-menu-item index="4">
-                <el-icon><setting /></el-icon>
-                <span>Navigator Four</span>
-              </el-menu-item>
-            </el-menu>
-          </v-col>
+            <v-btn icon="far fa-bell"></v-btn>
+            <v-btn>
+              <Link :href="route('profile.show')">
+                <v-icon icon="far fa-circle-user"></v-icon>
+              </Link>
+            </v-btn>
 
-          <v-col cols="10">
-            <slot />
-          </v-col>
-        </v-row>
-      </main>
+          </v-app-bar>
+
+            <v-row>
+              <v-col v-for="card in cards" :key="card" cols="12">
+                <slot />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+      </v-app>
     </div>
   </div>
 </template>
@@ -128,7 +107,7 @@ const logout = () => {
 <script>
 export default {
   data: () => ({
-    drawer: false,
+    drawer: null,
     group: null,
     items: [
       {
@@ -148,6 +127,13 @@ export default {
         value: "buzz",
       },
     ],
+    cards: ['Today', 'Yesterday'],
+    links: [
+        ['mdi-inbox-arrow-down', '  '],
+        ['mdi-send', 'Send'],
+        ['mdi-delete', 'Trash'],
+        ['mdi-alert-octagon', 'Spam'],
+      ],
   }),
 
   watch: {
@@ -161,5 +147,11 @@ export default {
 <style>
 .flex-grow {
   flex-grow: 1;
+}
+.area-desktop {
+  margin-left: 200px;
+}
+.area-desktop-xs {
+  margin-left: 0px;
 }
 </style>
