@@ -14,6 +14,8 @@ import * as directives from 'vuetify/directives'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { aliases, fa } from 'vuetify/iconsets/fa'
 import { mdi } from 'vuetify/iconsets/mdi'
+import colors from 'vuetify/lib/util/colors'
+
 //ELEMENT UI
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -22,15 +24,29 @@ import 'element-plus/theme-chalk/display.css'
 const vuetify = createVuetify({
     components,
     directives,
+    theme: {
+        themes: {
+            light: {
+                dark: false,
+                colors: {
+                    primary: '#143fef', // #2962FF
+                    secondary: '#1E88E5', // #1E88E5
+                    success: '#00c292', //'#00c292' #00C853,
+                    info: "#59a9ff",
+                }
+            },
+        },
+    },
     icons: {
         defaultSet: 'fa',
         aliases,
         sets: {
-          fa,
-          mdi,
+            fa,
+            mdi,
         }
     },
-  })
+
+})
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
