@@ -12,7 +12,7 @@ import Welcome from '@/Components/Welcome.vue';
         </template>
 
         <div class="py-12">
-            <div class=" overflow-hidden shadow-xl sm:rounded-lg">
+            <div>
                 <Welcome />
             </div>
         </div>
