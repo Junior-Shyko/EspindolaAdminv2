@@ -5,6 +5,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import VueMask from '@devindex/vue-mask'
 
 // Vuetify
 import 'vuetify/styles'
@@ -59,6 +60,7 @@ createInertiaApp({
             .use(ZiggyVue, Ziggy)
             .use(vuetify)
             .use(ElementPlus)
+            .use(VueMask)
             .mount(el);
     },
     progress: {
