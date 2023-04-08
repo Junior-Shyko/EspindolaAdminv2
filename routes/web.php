@@ -33,5 +33,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/contato-site', [ContactSiteController::class, 'index'])->name('site.contact');
+   
+
+});
+
+Route::controller(ContactSiteController::class)->group(function () {
+    Route::get('/contato-site', 'index')->name('site.contact');
+    Route::post('/salvar-contato', 'store')->name('save.contact');
 });

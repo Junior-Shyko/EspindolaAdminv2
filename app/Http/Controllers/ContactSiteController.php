@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\ContactSite;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreContactSiteRequest;
 use App\Http\Requests\UpdateContactSiteRequest;
-use App\Models\ContactSite;
-use Inertia\Inertia;
 
 class ContactSiteController extends Controller
 {
@@ -30,7 +31,12 @@ class ContactSiteController extends Controller
      */
     public function store(StoreContactSiteRequest $request)
     {
-        //
+       try {
+        ContactSite::create($request->all());
+        return response()->json(['message' => 'deu certo']);
+       } catch (\Throwable $th) {
+        throw $th;
+       }
     }
 
     /**
