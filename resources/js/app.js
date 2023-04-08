@@ -21,6 +21,9 @@ import colors from 'vuetify/lib/util/colors'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/display.css'
+//ALERT
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const vuetify = createVuetify({
     components,
@@ -61,6 +64,7 @@ createInertiaApp({
             .use(vuetify)
             .use(ElementPlus)
             .use(VueMask)
+            .use(VueSweetalert2)
             .mount(el);
     },
     progress: {

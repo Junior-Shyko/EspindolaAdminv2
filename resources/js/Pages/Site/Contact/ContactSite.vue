@@ -33,7 +33,7 @@ import FormContact from "./FormContact.vue";
           title="Contato do site"
           subtitle="Informação completa da imobilária"
         >
-          <FormContact />
+          <FormContact v-model:dialog="dialog"/>
         </v-card>
       </v-dialog>
     </div>
