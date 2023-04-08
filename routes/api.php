@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ContactSiteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(ContactSiteController::class)->group(function () {
+    Route::get('/todos-contatos', 'all')->name('site.contact.all');
 });
