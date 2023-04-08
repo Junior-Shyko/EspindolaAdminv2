@@ -12,6 +12,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import * as labs from 'vuetify/labs/components'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { aliases, fa } from 'vuetify/iconsets/fa'
 import { mdi } from 'vuetify/iconsets/mdi'
@@ -26,8 +27,11 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 const vuetify = createVuetify({
-    components,
-    directives,
+    components: {
+        ...components,
+        ...directives,
+        ...labs,
+      },
     theme: {
         themes: {
             light: {
