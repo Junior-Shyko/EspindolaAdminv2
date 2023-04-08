@@ -70,4 +70,14 @@ class ContactSiteController extends Controller
     {
         //
     }
+
+    public function all()
+    {
+        try {
+            return ContactSite::all();
+            // response()->json($contact);
+        } catch (\Exception $th) {
+            return response()->json($th->getMessage());
+        }
+    }
 }
