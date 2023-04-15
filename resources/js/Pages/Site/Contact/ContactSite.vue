@@ -3,6 +3,13 @@ import { Head, Link } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import TableContact from "@/Pages/Site/Contact/TableContact.vue";
 import FormContact from "./FormContact.vue";
+// import { generateClasses } from '@formkit/themes'
+// import genesis from '@formkit/themes/tailwindcss/genesis'
+
+// const createCharacter = async (fields) => {
+//   // await new Promise((r) => setTimeout(r, 1000))
+//  console.log(JSON.stringify(fields))
+// }
 
 </script>
 
@@ -35,6 +42,7 @@ import FormContact from "./FormContact.vue";
         >
           <FormContact v-model:dialog="dialog"/>
         </v-card>
+       
       </v-dialog>
     </div>
   </AppLayout>
@@ -42,7 +50,9 @@ import FormContact from "./FormContact.vue";
 
 <script>
 export default {
-
+  // config: {
+  //   classes: generateClasses(genesis),
+  // },
   data: () => ({
     cep: "",
     dialog: false,
