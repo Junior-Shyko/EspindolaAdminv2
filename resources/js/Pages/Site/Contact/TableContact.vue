@@ -1,4 +1,6 @@
 <script setup>
+import { router } from '@inertiajs/core';
+
 const tableData = [
   {
     date: '2016-05-03',
@@ -21,6 +23,7 @@ const tableData = [
     address: 'No. 189, Grove St, Los Angeles',
   },
 ]
+import { Link } from '@inertiajs/vue3';
 </script>
 <template>
   <div>
@@ -37,9 +40,11 @@ const tableData = [
       size="small"
       class="me-2"
       variant="text"
-      @click="  (item.raw)"
+      
       >
-      <v-icon icon="fas fa-edit"></v-icon> 
+      <Link :href="route('editar-contato', item.raw.id)" >
+        <v-icon icon="fas fa-edit"></v-icon> 
+      </Link>
       </v-btn>
 
       <v-btn
@@ -91,7 +96,7 @@ export default {
   },
   methods: {
     editItem (item) {
-       console.log({item})
+       console.log(item.id)
       },
 
       deleteItem (item) {

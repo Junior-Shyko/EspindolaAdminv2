@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ContactSiteController;
+use App\Models\ContactSite;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +33,12 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
-   
+    })->name('dashboard');  
 
 });
 
 Route::controller(ContactSiteController::class)->group(function () {
-    Route::get('/contato-site', 'index')->name('site.contact');
+    Route::get('/contato-site', 'index')->name('contato-site');
+    Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
     Route::post('/salvar-contato', 'store')->name('save.contact');
 });
