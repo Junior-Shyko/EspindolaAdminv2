@@ -50,9 +50,10 @@ class ContactSiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ContactSite $contactSite)
+    public function edit($id)
     {
-        //
+        $contact = ContactSite::find($id);
+        return Inertia::render('Site/Contact/EditContact' , ['editContact' => $contact]);
     }
 
     /**
