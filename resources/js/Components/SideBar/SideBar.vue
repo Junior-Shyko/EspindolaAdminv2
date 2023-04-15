@@ -1,3 +1,6 @@
+<script setup>
+import { Link, router } from '@inertiajs/vue3'
+</script>
 <template>
   <div>
     <v-navigation-drawer v-model="drawer">
@@ -66,13 +69,19 @@
             ></v-list-item>
           </v-list-group>
         </v-list-group>
-        
+        <v-list-item prepend-icon="fas fa-home">
+          <Link :href="route('contato-site')" >
+            Contato
+          </Link>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+
+
 export default {
   data: () => ({
     drawer: null,
