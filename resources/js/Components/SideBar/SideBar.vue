@@ -3,13 +3,13 @@ import { Link, router } from '@inertiajs/vue3'
 </script>
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer">
+    <v-navigation-drawer v-model="drawer" color="blue-grey-darken-2">
       <!-- <v-sheet color="grey-lighten-4" class="pa-4">
             <v-avatar class="mb-4" color="grey-darken-1" size="64"></v-avatar>
 
             <div>john@google.com</div>
           </v-sheet> -->
-      <v-card class="mx-auto" color="grey-lighten-4">
+      <v-card class="mx-auto" color="blue-grey-darken-2">
         <v-avatar
           class="mb-4"
           color="grey-darken-1"
@@ -69,10 +69,15 @@ import { Link, router } from '@inertiajs/vue3'
             ></v-list-item>
           </v-list-group>
         </v-list-group>
-        <v-list-item prepend-icon="fas fa-home">
-          <Link :href="route('contato-site')" >
+        <v-list-item>
+          <template v-slot:prepend>
+            <v-icon icon="fas fa-calendar" size="sm"></v-icon>
+          </template>
+          <v-list-item-title>
+            <Link :href="route('contato-site')" >
             Contato
           </Link>
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
