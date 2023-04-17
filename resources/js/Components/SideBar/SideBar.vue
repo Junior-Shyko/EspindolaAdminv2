@@ -1,5 +1,5 @@
 <script setup>
-import { Link, router } from '@inertiajs/vue3'
+import { Link, router } from "@inertiajs/vue3";
 </script>
 <template>
   <div>
@@ -16,6 +16,10 @@ import { Link, router } from '@inertiajs/vue3'
           size="64"
           style="margin-left: 100px; margin-top: 10px"
         >
+          <v-img
+            src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqNbKVTGAWlEe65Ao0ILXrAQzupIZOpp6qYw&usqp=CAU"
+            alt="{{ $page.props.auth.user.name }}"
+          ></v-img>
         </v-avatar>
         <v-card-title class="flex-just-center">
           {{ $page.props.auth.user.name }}
@@ -74,9 +78,7 @@ import { Link, router } from '@inertiajs/vue3'
             <v-icon icon="fas fa-calendar" size="sm"></v-icon>
           </template>
           <v-list-item-title>
-            <Link :href="route('contato-site')" >
-            Contato
-          </Link>
+            <Link :href="route('contato-site')"> Contato </Link>
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -85,8 +87,6 @@ import { Link, router } from '@inertiajs/vue3'
 </template>
 
 <script>
-
-
 export default {
   data: () => ({
     drawer: null,
