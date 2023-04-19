@@ -28,15 +28,14 @@ import { Link, router } from "@inertiajs/vue3";
       <v-divider></v-divider>
 
       <v-list v-model:opened="open">
-        <v-list-item prepend-icon="fas fa-home" title="Home"></v-list-item>
+        <v-list-item prepend-icon="fas fa-home" title="Home" style="font-size:small"></v-list-item>
 
-        <v-list-group value="Users">
+        <v-list-group value="Users" style="font-size:small">
           <template v-slot:activator="{ props }">
             <v-list-item
               v-bind="props"
               prepend-icon="fas fa-circle-user"
               title="Usuarios"
-              style="font-style: 10px"
             ></v-list-item>
           </template>
 
@@ -46,8 +45,9 @@ import { Link, router } from "@inertiajs/vue3";
                 v-bind="props"
                 prepend-icon="fas fa-table-columns"
                 title="Admin"
-                style="font-style: 10px"
-              ></v-list-item>
+                size="sm"
+              >
+            </v-list-item>
             </template>
 
             <v-list-item
@@ -56,10 +56,11 @@ import { Link, router } from "@inertiajs/vue3";
               :title="title"
               :prepend-icon="icon"
               :value="title"
+              size="x-small"
             ></v-list-item>
           </v-list-group>
 
-          <v-list-group value="Actions">
+          <!-- <v-list-group value="Actions">
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" title="Imóveis"></v-list-item>
             </template>
@@ -71,7 +72,7 @@ import { Link, router } from "@inertiajs/vue3";
               :title="title"
               :prepend-icon="icon"
             ></v-list-item>
-          </v-list-group>
+          </v-list-group> -->
         </v-list-group>
         <v-list-item>
           <template v-slot:prepend>
@@ -118,4 +119,9 @@ export default {
 .v-list-item--density-default.v-list-item--one-line {
   min-height: 5px !important;
 }
-</style>
+.v-list-group {
+    --list-indent-size: 10px;
+    --parent-padding: var(--indent-padding);
+    --prepend-width: 20 px;
+}
+</style>  
