@@ -41,4 +41,6 @@ Route::controller(ContactSiteController::class)->group(function () {
     Route::get('/contato-site', 'index')->name('contato-site');
     Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
     Route::post('/salvar-contato', 'store')->name('save.contact');
+    Route::patch('editar-contato/{id}', 'update')->name('update.contact');
+    Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
 });

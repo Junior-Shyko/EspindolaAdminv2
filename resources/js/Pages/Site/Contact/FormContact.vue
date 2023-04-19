@@ -1,5 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import api from "@/Components/server/api"
+
 </script>
 <template>
   <div>
@@ -92,22 +94,27 @@ import { Link } from '@inertiajs/vue3';
 
                 <v-col cols="6" xs="6" sm="6" md="6">
                   <div class="flex justify-start">
-                    <v-btn color="secound" variant="flat">
+                    <v-btn 
+                      title="Voltar para lista"  
+                      color="secound" variant="elevated"
+                      class="border-current"
+                      border="1"
+                    >
                       <Link :href="route('contato-site')">
                         <v-icon icon="fa fa-arrow-left"></v-icon>
-
                           Voltar
-                      </Link>
-                     
+                      </Link>                     
                     </v-btn>
                   </div>
                 </v-col>
 
                 <v-col cols="6" xs="6" sm="6" md="6">
                   <div class="flex justify-end">
-                    <v-btn color="primary" type="submit" variant="flat">
-                      Salvar
-                      <v-icon icon="fa fa-floppy-disk"></v-icon>
+                    <v-btn 
+                      title="Alterar os dados existente"
+                      color="primary" type="submit" variant="flat">
+                      {{ textBtnData }}
+                      <v-icon icon="fa fa-floppy-disk" size="sm" class="ml-2"></v-icon>
                     </v-btn>
                   </div>
                 </v-col>
@@ -135,6 +142,7 @@ import { Link } from '@inertiajs/vue3';
         </v-container>
       </v-card-item>
     </v-card>
+   
   </div>
 </template>
 
@@ -151,6 +159,7 @@ export default {
     return {
       dialogChildren: true,
       contact: [],
+      textBtnData: 'Alterar'
     };
   },
   created() {
@@ -188,18 +197,12 @@ export default {
         creci: this.contact.creci,
         cnpj: this.contact.cnpj,
       };
+      if (this.typeForm == "edicao") {      
+        this.updateContactApi(dataPost)
+      }else{
+        this.saveContactApi(dataPost)
+      }
 
-      axios
-        .post("http://localhost:8000/salvar-contato", dataPost)
-        .then((res) => {
-          console.log({ res });
-          this.dialogChildren = false;
-          this.$emit("update:dialog", this.dialogChildren);
-          this.$swal("Cadastro realizado com sucesso");
-        })
-        .catch((err) => {
-          console.log({ err });
-        });
     },
     getContactApi() {
       if (this.typeForm == "edicao") {
@@ -215,6 +218,30 @@ export default {
         this.contact.cnpj = this.contactData.cnpj;
       }
     },
+    saveContactApi(dataPost) {
+      axios
+        .post("http://localhost:8000/salvar-contato", dataPost)
+        .then((res) => {
+          console.log({ res });
+          this.dialogChildren = false;
+          this.$emit("update:dialog", this.dialogChildren);
+          this.$swal("Cadastro realizado com sucesso");
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
+    },
+    updateContactApi(dataPost) {
+      api.patch('editar-contato/' + this.contactData.id, dataPost)
+      .then((res) => {
+        console.log(res)
+        this.$swal("Cadastro alterado com sucesso");
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+   
   },
 };
 </script>

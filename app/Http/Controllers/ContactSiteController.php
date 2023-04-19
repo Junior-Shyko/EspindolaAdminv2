@@ -59,17 +59,27 @@ class ContactSiteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContactSiteRequest $request, ContactSite $contactSite)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            ContactSite::find($id)->update($request->all());
+            return response()->json(['message' => 'success']);
+        } catch (\Throwable $th) {
+         throw $th;
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactSite $contactSite)
+    public function destroy($id)
     {
-        //
+       try {
+        ContactSite::find($id)->delete();
+        return response()->json(['message' => 'success']);
+       } catch (\Throwable $th) {
+        throw $th;
+       }
     }
 
     public function all()
