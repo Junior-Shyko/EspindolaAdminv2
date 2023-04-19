@@ -25,6 +25,9 @@ import 'element-plus/theme-chalk/display.css'
 //ALERT
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Toast from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
 
 const vuetify = createVuetify({
     components: {
@@ -69,6 +72,7 @@ createInertiaApp({
             .use(ElementPlus)
             .use(VueMask)
             .use(VueSweetalert2)
+            .use(Toast)
             .mount(el);
     },
     progress: {
