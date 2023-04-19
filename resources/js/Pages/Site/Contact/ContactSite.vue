@@ -3,6 +3,7 @@ import { Head, Link } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import TableContact from "@/Pages/Site/Contact/TableContact.vue";
 import FormContact from "./FormContact.vue";
+
 // import { generateClasses } from '@formkit/themes'
 // import genesis from '@formkit/themes/tailwindcss/genesis'
 
@@ -10,7 +11,7 @@ import FormContact from "./FormContact.vue";
 //   // await new Promise((r) => setTimeout(r, 1000))
 //  console.log(JSON.stringify(fields))
 // }
-
+defineProps({ editContact: Object })
 </script>
 
 <template>
@@ -40,7 +41,8 @@ import FormContact from "./FormContact.vue";
           title="Contato do site"
           subtitle="Informação completa da imobilária"
         >
-          <FormContact v-model:dialog="dialog"/>
+          <FormContact v-model:dialog="dialog" :contactData="contactData"/>
+          
         </v-card>
        
       </v-dialog>
@@ -56,7 +58,11 @@ export default {
   data: () => ({
     cep: "",
     dialog: false,
+    contactData: String
   }),
+  created() {
+      this.contactData = this.editContact
+  }
 };
 </script>
 <style>
