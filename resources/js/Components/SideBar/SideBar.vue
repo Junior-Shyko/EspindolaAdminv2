@@ -1,6 +1,6 @@
 <script setup>
 import { Link, router } from "@inertiajs/vue3";
-import Menu, {adminsMenu} from './Menu.vue'
+import Menu from './Menu.vue'
 </script>
 <template>
   <div>
@@ -83,6 +83,9 @@ import Menu, {adminsMenu} from './Menu.vue'
 
 <script>
 export default {
+  props: {
+    draw: Boolean
+  },
   data: () => ({
     drawer: null,
     open: ["Users"],
@@ -95,12 +98,16 @@ export default {
     ],
   }),
   created() {
-
+    this.drawer = this.draw
   },
   watch: {
     group() {
       this.drawer = false;
     },
+    draw(val) {
+      console.log('side ', val)
+      this.drawer = val
+    }
   },
 };
 </script>

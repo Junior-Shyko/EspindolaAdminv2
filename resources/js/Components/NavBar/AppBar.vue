@@ -1,13 +1,10 @@
 <script setup>
 import { Link, router } from "@inertiajs/vue3";
-import {adminsMenu} from "@/Components/SideBar/Menu.vue"
+import Menu from "@/Components/SideBar/Menu.vue"
 const logout = () => {
   console.log("logout");
   router.post(route("logout"));
 };
-const props = defineProps({
-  menu: adminsMenu
-})
 
 </script>
 <template>
@@ -22,7 +19,7 @@ const props = defineProps({
       <template v-slot:prepend>
         <v-app-bar-nav-icon
           variant="text"
-          @click.stop="drawer = !drawer"
+         @click="alterLeft()"
         ></v-app-bar-nav-icon>
       </template>
 
@@ -86,16 +83,7 @@ const props = defineProps({
       <v-list>
         <v-list-item>
         </v-list-item>
-        <v-list-item v-for="(item, index) in adminsMenu" :key="index">
-          <template v-slot:prepend>
-            <v-icon icon='fa:fas fa-lock' size="sm"></v-icon>
-          </template>
-          <v-list-item-title>
-            <Link :href="route(item.link)">
-              {{ item.title }}
-            </Link>
-          </v-list-item-title>
-        </v-list-item>
+        <Menu />
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -103,9 +91,14 @@ const props = defineProps({
 
 <script>
 export default {
+ 
   props: {
     team: Object,
+    draw: Boolean,
   },
+  setup(props, {emit}) {
+     
+},
   data: () => ({
     drawer: false,
     location: "left",
@@ -122,7 +115,11 @@ export default {
   created() {
     this.idTeam = this.team;
     console.log(this.idTeam);
-    console.log(typeof this.adminsMenu)
+  },
+  methods: {
+      alterLeft() {
+        this.$emit('draw', true)
+      }
   },
   watch: {
     group() {
