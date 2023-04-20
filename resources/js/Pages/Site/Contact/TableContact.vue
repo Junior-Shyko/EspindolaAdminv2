@@ -102,7 +102,7 @@ const tableData = [
 export default {
   data() {
     return {
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       headers: [
         {
           title: "CEP",
@@ -153,7 +153,7 @@ export default {
         useToast().success("Registro excluido com sucesso", {
           timeout: 4000,
           position: POSITION.TOP_CENTER
-        });
+        });        
         this.getContact();  
       })
       .catch((err) => {
@@ -165,6 +165,13 @@ export default {
     //   dialog (val) {
     //     val || this.close()
     //   },
+    reloadTable(val) {
+      
+      if(val == 'reload-table') {
+        this.getContact()
+        console.log({val})
+      }
+    },
     dialogDelete(val) {
       // val || this.closeDelete()
       console.log(this.dialogDelete);

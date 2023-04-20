@@ -29,7 +29,7 @@ defineProps({ editContact: Object })
           </v-btn>
         </v-row>
         <v-card-item>
-          <TableContact />
+          <TableContact />  
         </v-card-item>
       </v-card>
       <v-dialog
@@ -41,7 +41,11 @@ defineProps({ editContact: Object })
           title="Contato do site"
           subtitle="Informação completa da imobilária"
         >
-          <FormContact v-model:dialog="dialog" :contactData="contactData"/>
+          <FormContact
+            v-model:dialog="dialog"
+            :contactData="contactData"
+            :typeForm="'criacao'"
+          />
           
         </v-card>
        
@@ -58,11 +62,28 @@ export default {
   data: () => ({
     cep: "",
     dialog: false,
-    contactData: String
+    contactData: String,
+    reloadTable : ''
   }),
   created() {
       this.contactData = this.editContact
-  }
+  },
+  watch: {
+      dialog (val) {
+        // val || this.close()
+        console.log('dialog ',val)
+        if(val == false) {
+          this.reloadTable = 'reload-table'
+        }
+      },
+    reloadTable(val) {
+     console.log('Contact Form',val)
+     if(val == 'reload-table') {
+      this.reloadTable = val
+     }
+    },
+  },
+
 };
 </script>
 <style>

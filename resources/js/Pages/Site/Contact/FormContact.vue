@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import api from "@/Components/server/api"
-
+import { useToast, POSITION } from "vue-toastification";
 </script>
 <template>
   <div>
@@ -159,12 +159,17 @@ export default {
     return {
       dialogChildren: true,
       contact: [],
-      textBtnData: 'Alterar'
+      textBtnData: String
     };
   },
   created() {
     this.getContactApi();
     //  console.log($page)
+    if(this.typeForm == 'edicao'){
+      this.textBtnData = 'Alterar'
+    }else{
+      this.textBtnData = 'Salvar'
+    }
   },
   methods: {
     consultaCpf() {
@@ -184,7 +189,6 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       console.log(e.target);
-      console.log(this.contact);
       var dataPost = {
         cep: this.contact.cep,
         address: this.contact.address,
@@ -222,23 +226,39 @@ export default {
       axios
         .post("http://localhost:8000/salvar-contato", dataPost)
         .then((res) => {
-          console.log({ res });
+          this.getContactApi();
           this.dialogChildren = false;
           this.$emit("update:dialog", this.dialogChildren);
-          this.$swal("Cadastro realizado com sucesso");
+          useToast().success("Registro cadastrado com sucesso", {
+            timeout: 2000,
+            position: POSITION.TOP_CENTER
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         })
         .catch((err) => {
-          console.log({ err });
+          useToast().error("Ops! Ocorreu um erro inesperado!", {
+            timeout: 2000,
+            position: POSITION.TOP_CENTER
+          });
+          console.log({err})
         });
     },
     updateContactApi(dataPost) {
       api.patch('editar-contato/' + this.contactData.id, dataPost)
       .then((res) => {
-        console.log(res)
-        this.$swal("Cadastro alterado com sucesso");
+        useToast().success("Cadastro alterado com sucesso", {
+          timeout: 2000,
+          position: POSITION.TOP_CENTER
+        });
       })
       .catch((err) => {
-        console.log(err)
+        useToast().error("Ops! Ocorreu um erro inesperado!", {
+          timeout: 2000,
+          position: POSITION.TOP_CENTER
+        });
+        console.log({err})
       })
     },
    
