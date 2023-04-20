@@ -1,5 +1,6 @@
 <script setup>
 import { Link, router } from "@inertiajs/vue3";
+import Menu, {adminsMenu} from './Menu.vue'
 </script>
 <template>
   <div>
@@ -50,14 +51,7 @@ import { Link, router } from "@inertiajs/vue3";
             </v-list-item>
             </template>
 
-            <v-list-item
-              v-for="([title, icon], i) in admins"
-              :key="i"
-              :title="title"
-              :prepend-icon="icon"
-              :value="title"
-              size="x-small"
-            ></v-list-item>
+            <Menu />
           </v-list-group>
 
           <!-- <v-list-group value="Actions">
@@ -92,10 +86,7 @@ export default {
   data: () => ({
     drawer: null,
     open: ["Users"],
-    admins: [
-      ["Gerenciar", "fas fa-user-pen"],
-      ["Config", "fas fa-gear"],
-    ],
+    
     cruds: [
       ["Imóveis", "fas fa-home"],
       ["Add Imoveis", "fas fa-plus"],
@@ -103,6 +94,9 @@ export default {
       ["Vistoria", "fas fa-pen-to-square"],
     ],
   }),
+  created() {
+
+  },
   watch: {
     group() {
       this.drawer = false;
