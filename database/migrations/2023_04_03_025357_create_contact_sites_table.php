@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('contact_sites', function (Blueprint $table) {
             $table->id();
+            $table->string('cep',15)->nullable();
+            $table->string('address',150)->nullable();
+            $table->integer('number')->nullable();
+            $table->string('complements',150)->nullable();
+            $table->string('district',150)->nullable();
+            $table->string('city',150)->nullable();
+            $table->string('state',50)->nullable();
+            $table->string('email',256)->nullable();
+            $table->string('creci',25)->nullable();
+            $table->string('cnpj',25)->nullable();
             $table->timestamps();
         });
     }
