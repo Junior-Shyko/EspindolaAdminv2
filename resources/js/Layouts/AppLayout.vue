@@ -39,11 +39,11 @@ const logout = () => {
     <div class="min-h-screen">
       <v-app id="inspire">
        <!-- MENU LATERAL ESQUERDO -->
-        <SideBar />
+        <SideBar v-model:draw="draw"/>
         <v-main class="bg-slate-100 dark:bg-gray-900">
           <v-container class="py-8 px-6" fluid>
             <!-- BARRA DO TOPO COM ITENS -->
-           <AppBar :team="$page.props.auth.user" />
+           <AppBar :team="$page.props.auth.user" @draw="setDraw($event)" />
             <v-row>
               <v-col>
                 <slot />
@@ -58,9 +58,11 @@ const logout = () => {
 
 <script>
 export default {
-  
-  data: () => ({
+  setup() {
     
+  },
+  data: () => ({
+    draw: null,
     group: null,
     items: [
       {
@@ -87,10 +89,17 @@ export default {
       ["mdi-delete", "Trash"],
       ["mdi-alert-octagon", "Spam"],
     ],
-    
-   
   }),
-
+  methods: {
+    setDraw(e) {
+      this.draw = e
+    } 
+  },
+  watch: {
+    draw(value) {
+      console.log({value})  
+    },
+  },
  
 };
 </script>
