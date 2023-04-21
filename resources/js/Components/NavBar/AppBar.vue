@@ -17,10 +17,13 @@ const logout = () => {
       </template> -->
 
       <template v-slot:prepend>
+       
         <v-app-bar-nav-icon
           variant="text"
          @click="alterLeft()"
+         class="d-flex  d-sm-none" 
         ></v-app-bar-nav-icon>
+       
       </template>
 
       <v-app-bar-title>
@@ -79,13 +82,7 @@ const logout = () => {
         </div>
       </div>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" location="left" temporary>
-      <v-list>
-        <v-list-item>
-        </v-list-item>
-        <Menu />
-      </v-list>
-    </v-navigation-drawer>
+   
   </div>
 </template>
 

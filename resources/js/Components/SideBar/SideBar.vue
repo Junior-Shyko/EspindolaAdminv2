@@ -1,5 +1,5 @@
 <script setup>
-import { Link, router } from "@inertiajs/vue3";
+
 import Menu from './Menu.vue'
 </script>
 <template>
@@ -29,53 +29,8 @@ import Menu from './Menu.vue'
       <v-divider></v-divider>
 
       <v-list v-model:opened="open">
-        <v-list-item prepend-icon="fas fa-home" title="Home" style="font-size:small"></v-list-item>
 
-        <v-list-group value="Users" style="font-size:small">
-          <template v-slot:activator="{ props }">
-            <v-list-item
-              v-bind="props"
-              prepend-icon="fas fa-circle-user"
-              title="Usuarios"
-            ></v-list-item>
-          </template>
-
-          <v-list-group value="Admin">
-            <template v-slot:activator="{ props }">
-              <v-list-item
-                v-bind="props"
-                prepend-icon="fas fa-table-columns"
-                title="Admin"
-                size="sm"
-              >
-            </v-list-item>
-            </template>
-
-            <Menu />
-          </v-list-group>
-
-          <!-- <v-list-group value="Actions">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" title="Imóveis"></v-list-item>
-            </template>
-
-            <v-list-item
-              v-for="([title, icon], i) in cruds"
-              :key="i"
-              :value="title"
-              :title="title"
-              :prepend-icon="icon"
-            ></v-list-item>
-          </v-list-group> -->
-        </v-list-group>
-        <v-list-item>
-          <template v-slot:prepend>
-            <v-icon icon="fas fa-calendar" size="sm"></v-icon>
-          </template>
-          <v-list-item-title>
-            <Link :href="route('contato-site')"> Contato </Link>
-          </v-list-item-title>
-        </v-list-item>
+        <Menu />
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -107,6 +62,7 @@ export default {
     draw(val) {
       console.log('side ', val)
       this.drawer = val
+      
     }
   },
 };
