@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\ContactSiteController;
 use App\Models\ContactSite;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\ContactSiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,13 @@ Route::controller(ContactSiteController::class)->group(function () {
     Route::patch('editar-contato/{id}', 'update')->name('update.contact');
     Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
 });
+Route::prefix('vistoria')->group(function () {
+    Route::controller(SurveyController::class)->group(function () {
+        Route::get('/', 'index')->name('vistoria');
+        // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
+        // Route::post('/salvar-contato', 'store')->name('save.contact');
+        // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
+        // Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
+    });
+});
+
