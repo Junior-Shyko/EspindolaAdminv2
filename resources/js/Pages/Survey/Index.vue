@@ -63,6 +63,27 @@ import { Head } from "@inertiajs/vue3";
           item-value="name"
           class="elevation-3"
         >        
+        <template v-slot:item.actions="{ item }">
+         
+          <v-btn
+            size="small"
+            class="me-2 elevation-3 "
+            @click="editItem(item.raw)"
+            
+          >
+          <v-icon icon="fas fa-edit"></v-icon>
+          </v-btn>
+          <v-btn
+            size="small"
+            color="error"
+            class="me-2 elevation-3 "
+            @click="deleteItem(item.raw)"
+            
+          >
+          <v-icon icon="fas fa-trash"></v-icon>
+          </v-btn>
+     
+    </template>
       </v-data-table>
       </v-row>
     </div>
@@ -98,16 +119,17 @@ export default {
       itemsPerPage: 5,
       headers: [
         {
-          title: "Dessert (100g serving)",
+          title: "Código",
           align: "start",
           sortable: false,
           key: "name",
         },
-        { title: "Calories", align: "end", key: "calories" },
-        { title: "Fat (g)", align: "end", key: "fat" },
-        { title: "Carbs (g)", align: "end", key: "carbs" },
-        { title: "Protein (g)", align: "end", key: "protein" },
-        { title: "Iron (%)", align: "end", key: "iron" },
+        { title: "Imóvel", align: "end", key: "calories" },
+        { title: "Data", align: "end", key: "fat" },
+        { title: "Tipo", align: "end", key: "carbs" },
+        { title: "Vistoriador", align: "end", key: "protein" },
+        { title: "Status", align: "end", key: "iron" },
+        { title: 'Actions', key: 'actions', sortable: false },
       ],
       desserts: [
         {
@@ -170,7 +192,15 @@ export default {
           this.disabledBtnSeach = false
           break;
       }
-    }
+    },
+
+    editItem (item) {
+      console.log({item})
+      },
+
+      deleteItem (item) {
+        console.log({item})
+      },
   }
 };
 </script>
