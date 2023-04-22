@@ -6,9 +6,17 @@ use Inertia\Inertia;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\Survey;
+use App\Services\Survey\SurveyService;
 
 class SurveyController extends Controller
 {
+    private $service;
+
+    public function __construct(SurveyService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +38,7 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
-        //
+        return $this->service->store($request->all());
     }
 
     /**
@@ -54,7 +62,7 @@ class SurveyController extends Controller
      */
     public function update(UpdateSurveyRequest $request, Survey $survey)
     {
-        //
+        return $this->service->update($request->all(), $survey);
     }
 
     /**
@@ -63,5 +71,10 @@ class SurveyController extends Controller
     public function destroy(Survey $survey)
     {
         //
+    }
+
+    public function all()
+    {
+        return $this->service->getList();
     }
 }

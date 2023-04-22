@@ -48,6 +48,7 @@ Route::controller(ContactSiteController::class)->group(function () {
 Route::prefix('vistoria')->group(function () {
     Route::controller(SurveyController::class)->group(function () {
         Route::get('/', 'index')->name('vistoria');
+
         // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
         // Route::post('/salvar-contato', 'store')->name('save.contact');
         // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
@@ -55,3 +56,6 @@ Route::prefix('vistoria')->group(function () {
     });
 });
 
+Route::get('csrf', function() {
+    return csrf_token();
+});
