@@ -1,6 +1,8 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import api from '@/Components/server/api';
+
 </script>
 <template>
   <AppLayout>
@@ -10,7 +12,7 @@ import { Head } from "@inertiajs/vue3";
         <v-card width="100%" style="display: flex">
           <v-col cols="12" xs="12" md="2">
             <v-select
-              @update:modelValue="handleClick"             
+              @update:modelValue="handleClick"
               :hint="`${optionInitSelect.label}, ${optionInitSelect.value}`"
               :items="itemsSelect"
               label="Pesquisar por"
@@ -25,14 +27,14 @@ import { Head } from "@inertiajs/vue3";
           </v-col>
           <v-col cols="12" xs="12" md="8">
             <v-text-field
-            v-if="!showSelect"
+              v-if="!showSelect"
               v-model="inputValue"
               :label="infoPlaceholder"
               :disabled="disabledBtnSeach"
               variant="solo"
             ></v-text-field>
             <v-select
-            v-if="showSelect"
+              v-if="showSelect"
               :hint="`${selectOptions.label}, ${selectOptions.value}`"
               :items="options"
               :label="infoPlaceholder"
@@ -44,13 +46,16 @@ import { Head } from "@inertiajs/vue3";
               hide-details
               v-model="selectOptions"
             ></v-select>
-
           </v-col>
           <v-col cols="12" xs="12" md="2">
             <div class="flex justify-center mt-2">
-              <v-btn 
-              prepend-icon="fas fa-search"
-              color="primary" :disabled="disabledBtnSeach"> Pesquisar </v-btn>
+              <v-btn
+                prepend-icon="fas fa-search"
+                color="primary"
+                :disabled="disabledBtnSeach"
+              >
+                Pesquisar
+              </v-btn>
             </div>
           </v-col>
         </v-card>
@@ -62,29 +67,25 @@ import { Head } from "@inertiajs/vue3";
           :items="desserts"
           item-value="name"
           class="elevation-3"
-        >        
-        <template v-slot:item.actions="{ item }">
-         
-          <v-btn
-            size="small"
-            class="me-2 elevation-3 "
-            @click="editItem(item.raw)"
-            
-          >
-          <v-icon icon="fas fa-edit"></v-icon>
-          </v-btn>
-          <v-btn
-            size="small"
-            color="error"
-            class="me-2 elevation-3 "
-            @click="deleteItem(item.raw)"
-            
-          >
-          <v-icon icon="fas fa-trash"></v-icon>
-          </v-btn>
-     
-    </template>
-      </v-data-table>
+        >
+          <template v-slot:item.actions="{ item }">
+            <v-btn
+              size="small"
+              class="me-2 elevation-3"
+              @click="editItem(item.raw)"
+            >
+              <v-icon icon="fas fa-edit"></v-icon>
+            </v-btn>
+            <v-btn
+              size="small"
+              color="error"
+              class="me-2 elevation-3"
+              @click="deleteItem(item.raw)"
+            >
+              <v-icon icon="fas fa-trash"></v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
       </v-row>
     </div>
   </AppLayout>
@@ -94,27 +95,27 @@ import { Head } from "@inertiajs/vue3";
 export default {
   data() {
     return {
-      inputValue: '',
-      infoPlaceholder:"Digite a sua pesquisa",
+      inputValue: "",
+      infoPlaceholder: "Digite a sua pesquisa",
       disabledBtnSeach: true,
       showInput: false,
       options: [],
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      items: ["Foo", "Bar", "Fizz", "Buzz"],
       showSelect: false,
       selectOptions: { label: "Pesquisar por", value: "" },
       typeImmobile: [
-        {value: 'casa', label: 'Casa'},
-        {value: 'apartamento', label: 'Apartamento'},
-        {value: 'loja', label: 'Loja'},
+        { value: "casa", label: "Casa" },
+        { value: "apartamento", label: "Apartamento" },
+        { value: "loja", label: "Loja" },
       ],
-      optionStatus : [
-            {value: 'Rascunho', label: 'Rascunho'},
-            {value: 'Finalizada', label: 'Finalizada'},
-        ],
+      optionStatus: [
+        { value: "Rascunho", label: "Rascunho" },
+        { value: "Finalizada", label: "Finalizada" },
+      ],
 
-      typeInspector : [
-        {value: 'João', label: 'João'},
-        {value: 'Maria', label: 'Maria'},
+      typeInspector: [
+        { value: "João", label: "João" },
+        { value: "Maria", label: "Maria" },
       ],
       itemsPerPage: 5,
       headers: [
@@ -129,7 +130,7 @@ export default {
         { title: "Tipo", align: "end", key: "carbs" },
         { title: "Vistoriador", align: "end", key: "protein" },
         { title: "Status", align: "end", key: "iron" },
-        { title: 'Actions', key: 'actions', sortable: false },
+        { title: "Actions", key: "actions", sortable: false },
       ],
       desserts: [
         {
@@ -152,56 +153,64 @@ export default {
     };
   },
   methods: {
-    handleClick( value ) {
-        console.log(value.value)
-      switch(value.value) {
-        case 'codigo':
-          this.infoPlaceholder = 'Digite um código para pesquisa e aperte ENTER'
-          this.showInput = true
-          this.disabledBtnSeach = false
-          this.showSelect = false
+    handleClick(value) {
+      console.log(value.value);
+      switch (value.value) {
+        case "codigo":
+          this.infoPlaceholder =
+            "Digite um código para pesquisa e aperte ENTER";
+          this.showInput = true;
+          this.disabledBtnSeach = false;
+          this.showSelect = false;
           break;
-        case 'tipo':
-          this.selectOptions= { label: "Qual o tipo?", value: "" },
-          this.infoPlaceholder = 'Escolha um tipo'
-          this.options = this.typeImmobile
-          this.showSelect = true
-          this.disabledBtnSeach = true
+        case "tipo":
+          (this.selectOptions = { label: "Qual o tipo?", value: "" }),
+            (this.infoPlaceholder = "Escolha um tipo");
+          this.options = this.typeImmobile;
+          this.showSelect = true;
+          this.disabledBtnSeach = true;
           break;
-        case 'status':
-          this.selectOptions= { label: "Qual o status?", value: "" },
-          this.infoPlaceholder = 'Escolha um status'
-          this.showInput = false
-          this.showSelect = true
-          this.options = this.optionStatus
-          this.disabledBtnSeach = true
+        case "status":
+          (this.selectOptions = { label: "Qual o status?", value: "" }),
+            (this.infoPlaceholder = "Escolha um status");
+          this.showInput = false;
+          this.showSelect = true;
+          this.options = this.optionStatus;
+          this.disabledBtnSeach = true;
           break;
-        case 'vistoriador':
-          this.selectOptions= { label: "Escolha o vistoridor(a)", value: "" },
-          this.infoPlaceholder = 'Digite o nome do vistoriador'
-          this.showInput = false
-          this.showSelect = true
-          this.options = this.typeInspector
-          this.disabledBtnSeach = true
+        case "vistoriador":
+          (this.selectOptions = {
+            label: "Escolha o vistoridor(a)",
+            value: "",
+          }),
+            (this.infoPlaceholder = "Digite o nome do vistoriador");
+          this.showInput = false;
+          this.showSelect = true;
+          this.options = this.typeInspector;
+          this.disabledBtnSeach = true;
           break;
-        case 'endereco':
-          this.infoPlaceholder = 'Digite um endereço'
-          this.labelBtnSearch = 'Endereço'
-          this.showInput = true
-          this.showSelect = false
-          this.disabledBtnSeach = false
+        case "endereco":
+          this.infoPlaceholder = "Digite um endereço";
+          this.labelBtnSearch = "Endereço";
+          this.showInput = true;
+          this.showSelect = false;
+          this.disabledBtnSeach = false;
           break;
       }
     },
 
-    editItem (item) {
-      console.log({item})
-      },
+    editItem(item) {
+      console.log({ item });
+    },
 
-      deleteItem (item) {
-        console.log({item})
-      },
-  }
+    deleteItem(item) {
+      console.log({ item });
+    },
+
+    getSurveyAll() {
+      
+    }
+  },
 };
 </script>
 
@@ -215,5 +224,4 @@ export default {
   transition: none;
   pointer-events: none;
 }
-
 </style>
