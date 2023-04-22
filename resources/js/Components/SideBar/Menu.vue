@@ -66,7 +66,7 @@ export default {
         },
         {
             title: "Vistoria",
-            link: "dashboard",
+            link: "vistoria",
             icon: "fas fa-file",
         },
       ],
