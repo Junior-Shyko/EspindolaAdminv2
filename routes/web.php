@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\ContactSiteController;
+use App\Http\Controllers\ProposalLegalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,18 @@ Route::prefix('vistoria')->group(function () {
         // Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
     });
 });
+
+Route::prefix('escolhaazul')->group(function () {
+    Route::controller(ProposalLegalController::class)->group(function () {
+        Route::get('proposta-pj', 'index')->name('escolhaazul/proposta-pj');
+        Route::get('imagem-pj', 'image')->name('escolhaazul/proposta-pj');
+        // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
+        // Route::post('/salvar-contato', 'store')->name('save.contact');
+        // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
+        // Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
+    });
+});
+
 
 Route::get('csrf', function() {
     return csrf_token();
