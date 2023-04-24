@@ -177,7 +177,7 @@ export default {
         { value: "João", label: "João" },
         { value: "Maria", label: "Maria" },
       ],
-      itemsPerPage: 10,
+      : 10,itemsPerPage
       headers: [
         {
           title: "Código",

@@ -20,7 +20,8 @@ class SurveyRepository implements SurveyRepositoryInterface
     }
     public function getList()
     {
-        return $this->model->orderBy('id', 'desc')->skip(0)->take(50)->get();
+        // return $this->model->orderBy('id', 'desc')->skip(0)->take(50)->get();
+        return $this->model->all();
     }
     public function get($id)
     {
