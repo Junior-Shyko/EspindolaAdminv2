@@ -1,27 +1,27 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head } from "@inertiajs/vue3";
-import api from '@/Components/server/api';
-
+import api from "@/Components/server/api";
+import moment from "moment";
 </script>
 <template>
   <AppLayout>
     <Head title="Vistoria" />
     <div>
-      <v-row class="mb-4">
-        <v-card width="100%" style="display: flex">
+      <v-row class="mb-4">        
+        <v-card 
+          width="100%" style="display: flex">        
           <v-col cols="12" xs="12" md="2">
             <v-select
-              @update:modelValue="handleClick"
-              :hint="`${optionInitSelect.label}, ${optionInitSelect.value}`"
+              @update:modelValue="handleClick"              
               :items="itemsSelect"
               label="Pesquisar por"
               item-title="label"
-              item-value="value"
-              persistent-hint
+              item-value="value"              
               return-object
               single-line
-              hide-details
+              hint="Pesquisa avançada"
+              persistent-hint
               v-model="optionInitSelect"
             ></v-select>
           </v-col>
@@ -32,6 +32,7 @@ import api from '@/Components/server/api';
               :label="infoPlaceholder"
               :disabled="disabledBtnSeach"
               variant="solo"
+              
             ></v-text-field>
             <v-select
               v-if="showSelect"
@@ -61,31 +62,89 @@ import api from '@/Components/server/api';
         </v-card>
       </v-row>
       <v-row>
-        <v-data-table
-          v-model:items-per-page="itemsPerPage"
-          :headers="headers"
-          :items="desserts"
-          item-value="name"
-          class="elevation-3"
-        >
-          <template v-slot:item.actions="{ item }">
-            <v-btn
-              size="small"
-              class="me-2 elevation-3"
-              @click="editItem(item.raw)"
-            >
-              <v-icon icon="fas fa-edit"></v-icon>
-            </v-btn>
-            <v-btn
-              size="small"
-              color="error"
-              class="me-2 elevation-3"
-              @click="deleteItem(item.raw)"
-            >
-              <v-icon icon="fas fa-trash"></v-icon>
-            </v-btn>
-          </template>
-        </v-data-table>
+        <v-card width="100%">
+          <v-card-title>
+
+            <v-text-field
+              v-model="search"
+              append-icon="fa fa-magnifying-glass"
+              label="Pesquisa rápida"
+              single-line
+              hint="Se não encontrar sua pesquisa, tente na avançada."
+              persistent-hint
+              variant="solo"
+              density="compact"
+            ></v-text-field>
+          </v-card-title>
+          <v-data-table
+            v-model:items-per-page="itemsPerPage"
+            :headers="headers"
+            :items="desserts"
+            item-value="name"
+            class="elevation-3"
+            :search="search"
+          >
+            <template v-slot:item.survey_address_immobile="{ item }">
+              <span
+                >{{ item.raw.survey_address_immobile.substr(0, 50) }}...</span
+              >
+            </template>
+            <template v-slot:item.survey_date="{ item }">
+              <span>{{ dateTime(item.raw.survey_date) }}</span>
+            </template>
+            <template v-slot:item.survey_inspetor_name="{ item }">
+              <span>{{ item.raw.survey_inspetor_name.substr(0, 15) }}...</span>
+            </template>
+            <template v-slot:item.survey_status="{ item }">
+              <span
+                class="badge-status"
+                v-if="item.raw.survey_status == 'Finalizada'"
+                >{{ item.raw.survey_status }}</span
+              >
+              <span class="badge-rascunho" v-else>{{
+                item.raw.survey_status
+              }}</span>
+            </template>
+            <template v-slot:item.actions="{ item }">
+              <v-icon
+                icon="fas fa-edit"
+                size="small"
+                class="m-1"
+                @click="editItem(item.raw)"
+                title="Editar"
+              >
+              </v-icon>
+
+              <v-icon
+                icon="fas fa-print"
+                size="small"
+                class="m-1"
+                title="Imprimir"
+              ></v-icon>
+              <v-icon
+                icon="fa fa-copy"
+                size="small"
+                class="m-1"
+                title="Duplicar"
+              ></v-icon>
+              <v-icon
+                icon="fas fa-image"
+                size="small"
+                class="m-1"
+                title="Imagens de ambiente"
+              ></v-icon>
+
+              <v-icon
+                icon="fas fa-trash"
+                size="small"
+                color="error"
+                class="m-1"
+                @click="deleteItem(item.raw)"
+                title="Excluir"
+              ></v-icon>
+            </template>
+          </v-data-table>
+        </v-card>
       </v-row>
     </div>
   </AppLayout>
@@ -95,6 +154,7 @@ import api from '@/Components/server/api';
 export default {
   data() {
     return {
+      search: '',
       inputValue: "",
       infoPlaceholder: "Digite a sua pesquisa",
       disabledBtnSeach: true,
@@ -117,31 +177,22 @@ export default {
         { value: "João", label: "João" },
         { value: "Maria", label: "Maria" },
       ],
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       headers: [
         {
           title: "Código",
           align: "start",
-          sortable: false,
-          key: "name",
+          sortable: true,
+          key: "survey_code",
         },
-        { title: "Imóvel", align: "end", key: "calories" },
-        { title: "Data", align: "end", key: "fat" },
-        { title: "Tipo", align: "end", key: "carbs" },
-        { title: "Vistoriador", align: "end", key: "protein" },
-        { title: "Status", align: "end", key: "iron" },
+        { title: "Imóvel", align: "end", key: "survey_address_immobile"},
+        { title: "Data", align: "end", key: "survey_date" },
+        { title: "Tipo", align: "end", key: "survey_type" },
+        { title: "Vistoriador", align: "end", key: "survey_inspetor_name" },
+        { title: "Status", align: "end", key: "survey_status" },
         { title: "Actions", key: "actions", sortable: false },
       ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1",
-        },
-      ],
+      desserts: [],
       optionInitSelect: { label: "Pesquisar por", value: "" },
       itemsSelect: [
         { label: "Código", value: "codigo" },
@@ -151,6 +202,9 @@ export default {
         { label: "Endereço", value: "endereco" },
       ],
     };
+  },
+  created() {
+    this.getSurveyAll();
   },
   methods: {
     handleClick(value) {
@@ -208,9 +262,20 @@ export default {
     },
 
     getSurveyAll() {
-      
-    }
+      api
+        .get("api/vistoria/all")
+        .then((res) => {
+          this.desserts = res.data;
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
+    },
+    dateTime(value) {
+      return moment(value).format("DD/MM/YYYYY");
+    },
   },
+  computed: {},
 };
 </script>
 
@@ -223,5 +288,19 @@ export default {
   width: 100%;
   transition: none;
   pointer-events: none;
+}
+.badge-status {
+  background: rgb(0, 105, 92);
+  padding: 5px;
+  border-radius: 15px;
+  color: white;
+  font-size: 13px;
+}
+.badge-rascunho {
+  background: #fb8c00;
+  padding: 5px;
+  border-radius: 15px;
+  color: rgb(37, 23, 23);
+  font-size: 13px;
 }
 </style>
