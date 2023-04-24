@@ -44,7 +44,7 @@ export default {
         },
         {
           title: "Proposta PJ",
-          link: "dashboard",
+          link: "escolhaazul/proposta-pj",
           icon: "fas fa-file-pen",
         },
         {
