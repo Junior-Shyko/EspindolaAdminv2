@@ -59,6 +59,7 @@ import api from "@/Components/server/api";
                 size="small"
                 class="m-1"
                 title="Arquivos de proposta"
+                @click="imageProposal(item.raw)"
               ></v-icon>
 
               
@@ -102,6 +103,10 @@ export default {
         },
         analysisProposal(item) {            
             window.open("https://espindolaimobiliaria.com.br/ea/view/report/proposal_pj_adm.php?id=" + btoa(item.legal_id), '_blank');
+        },
+        imageProposal(item)
+        {
+           window.open(route('imagem.tipo.profile', [item.legal_id, 'pj', 'inquilino']), '_blank')
         }
     },
     mounted() {
