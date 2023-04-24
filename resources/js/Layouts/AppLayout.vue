@@ -5,9 +5,6 @@ import Banner from "@/Components/Banner.vue";
 import SideBar from "@/Components/SideBar/SideBar.vue";
 import AppBar from "@/Components/NavBar/AppBar.vue";
 
-import NavLink from "@/Components/NavLink.vue";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-
 defineProps({
   title: String,
 });

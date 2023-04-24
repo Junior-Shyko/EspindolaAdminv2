@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\ContactSiteController;
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(ContactSiteController::class)->group(function () {
     Route::get('/todos-contatos', 'all')->name('site.contact.all');
+});
+Route::prefix('vistoria')->group(function () {
+    Route::controller(SurveyController::class)->group(function () {
+        Route::get('all', 'all')->name('vistoria.all');
+    });
 });
