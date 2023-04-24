@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
+use Inertia\Inertia;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
-use App\Models\File;
 
 class FileController extends Controller
 {
@@ -13,7 +14,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -62,5 +63,11 @@ class FileController extends Controller
     public function destroy(File $file)
     {
         //
+    }
+
+
+    public function image($id, $type, $profile = null)
+    {
+        return Inertia::render('Files/Proposal/PJ', ['id' => $id]);
     }
 }
