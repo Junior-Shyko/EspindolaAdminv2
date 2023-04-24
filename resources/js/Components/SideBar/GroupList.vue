@@ -8,7 +8,7 @@ import { Link } from "@inertiajs/vue3";
         <v-list-item
           v-bind="props"
           :title="nameGroup"
-          :prepend-icon="iconGroup"
+          :prepend-icon="iconGroupList"
         ></v-list-item>
       </template>
 
@@ -36,16 +36,17 @@ export default {
     listItems: Object,
     titleGroup: String,
     iconGroup: String,
+    valueGroup: String,
   },
   data() {
     return {
       itemsList: this.listItems,
       nameGroup: this.titleGroup,
-      iconGroup: this.iconGroup,
+      iconGroupList: this.iconGroup,  
     };
   },
   created() {
-    console.log(this.iconGroup);
+
   },
 };
 </script>

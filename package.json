@@ -34,6 +34,7 @@
         "@devindex/vue-mask": "^2.0.3",
         "element-plus": "^2.3.2",
         "formvuelate": "^3.9.1",
+        "moment": "^2.29.4",
         "vue-sweetalert2": "^5.0.5",
         "vuetify": "^3.1.12",
         "vuetifyjs-mix-extension": "^0.0.20"

@@ -59,7 +59,7 @@ const vuetify = createVuetify({
 
 })
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Espindola Admin';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
