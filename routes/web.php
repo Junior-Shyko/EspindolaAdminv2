@@ -60,7 +60,7 @@ Route::prefix('vistoria')->group(function () {
 Route::prefix('escolhaazul')->group(function () {
     Route::controller(ProposalLegalController::class)->group(function () {
         Route::get('proposta-pj', 'index')->name('escolhaazul/proposta-pj');
-        Route::get('imagem-pj', 'image')->name('escolhaazul/proposta-pj');
+        Route::get('imagem-pj', 'image')->name('escolhaazul/image-proposta-pj');
         // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
         // Route::post('/salvar-contato', 'store')->name('save.contact');
         // Route::patch('editar-contato/{id}', 'update')->name('update.contact');

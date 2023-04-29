@@ -60,9 +60,9 @@
                 </x-slot>
 
                 <x-slot name="actions">
-                    <x-jet-action-message class="mr-3" on="saved">
+                    {{-- <x-jet-action-message class="mr-3" on="saved">
                         {{ __('Added.') }}
-                    </x-jet-action-message>
+                    </x-jet-action-message> --}}
 
                     <x-button>
                         {{ __('Add') }}
