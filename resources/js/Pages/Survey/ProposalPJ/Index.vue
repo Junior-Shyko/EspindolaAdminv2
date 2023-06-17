@@ -37,13 +37,14 @@ import api from "@/Components/server/api";
           >
 
           <template v-slot:item.actions="{ item }">
+            {{ countFiles(item) }}
               <v-icon
                 icon="fas fa-eye"
                 size="small"
                 class="m-1"
                 @click="eyeProposal(item.raw)"
                 title="Visualizar proposta"
-              >
+              >   
               </v-icon>
 
               <v-icon
@@ -53,16 +54,17 @@ import api from "@/Components/server/api";
                 title="Análise de proposta"
                 @click="analysisProposal(item.raw)"
               ></v-icon>
-              
-              <v-icon
-                icon="fas fa-image"
-                size="small"
-                class="m-1"
-                title="Arquivos de proposta"
-                @click="imageProposal(item.raw)"
-              ></v-icon>
-
-              
+              <v-badge
+                color="error"
+                content="6">
+                    <v-icon
+                            icon="fas fa-image"
+                            size="small"
+                            class="m-1"
+                            title="Arquivos de proposta"
+                            @click="imageProposal(item.raw)"
+                        ></v-icon>
+            </v-badge>
             </template>
           </v-data-table>
             </v-card>
@@ -94,32 +96,49 @@ export default {
                 { title: "Garantia", align: "end", key: "legal_location_type_guarantee" },
                 { title: "Ação", key: "actions", sortable: false },
             ],
+            api_ea : import.meta.env.VITE_ESPINDOLA_EA,
+            api_escolhaazul : import.meta.env.VITE_API_ESPINDOLA_EA,
+            countFilesImages: 0
         }
     },
     methods: {
         eyeProposal(item) {
-            console.log({item})
-            window.open("https://espindolaimobiliaria.com.br/ea/?action=view-legal&id=" + btoa(item.legal_id), '_blank');
+            window.open(this.api_ea + "?action=view-legal&id=" + btoa(item.legal_id), '_blank');
         },
         analysisProposal(item) {            
-            window.open("https://espindolaimobiliaria.com.br/ea/view/report/proposal_pj_adm.php?id=" + btoa(item.legal_id), '_blank');
+            window.open(this.api_ea + "view/report/proposal_pj_adm.php?id=" + btoa(item.legal_id), '_blank');
         },
         imageProposal(item)
         {
-           window.open(route('imagem.tipo.profile', [item.legal_id, 'pj', 'inquilino']), '_blank')
+           window.open(route('imagem.tipo.profile', [item.legal_id, 'pj' , 'inquilino']), '_blank')
+        },
+        countFiles(item)
+        {
+            console.log({item})
+            axios.get(this.api_escolhaazul + '/api/proposal-image/pj/' + item.raw.legal_id)
+            .then((res) => {
+                let count = 0
+                console.log(typeof res.data)
+                console.log(Object.keys(res.data).length)
+                return Object.keys(res.data).length
+               
+            })
         }
     },
     mounted() {
         axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        axios.get('https://espindolaimobiliaria.com.br/escolhaazul/api/proposal/pj')
+        axios.get(this.api_escolhaazul + '/api/proposal/pj')
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
             this.listProposalPJ = res.data
             this.loading = false;
         })
         .catch((err) => {
             console.log(err)
         })
+    },
+    computed: {
+       
     }
 }
 </script>

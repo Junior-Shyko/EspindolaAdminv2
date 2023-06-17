@@ -1,13 +1,15 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ListImage from "./ListImage.vue";
-
+//registro do que vem pelo controlador
+const props = defineProps({
+    id: Number 
+});
 </script>
 <template>
   <AppLayout>
     <div>
       <div class="flex justify-evenly">
-        {{ $page.props }}
         <v-card width="100%">
           <v-card-title>
             <div class="lg:flex justify-between items-center">
@@ -24,7 +26,10 @@ import ListImage from "./ListImage.vue";
               <v-btn>Upload</v-btn>
             </v-col>
             <v-col cols="12" md="4">
-              <v-btn>Atualizar</v-btn>
+              <v-btn
+              >
+              Atualizar
+            </v-btn>
             </v-col>
             <v-divider class="mt-2"></v-divider>
           </v-row>
@@ -37,7 +42,7 @@ import ListImage from "./ListImage.vue";
           <ListImage 
             :namefile="item.files_name"
             :date="item.files_date"
-            :image="`${'https://espindolaimobiliaria.com.br/escolhaazul/public/img/upload/' + item.files_name}`" />
+            :image="`${api_ea + 'public/img/upload/' + item.files_name}`" />
         </v-col>
       </v-row>
     </div>
@@ -45,10 +50,15 @@ import ListImage from "./ListImage.vue";
 </template>
 
 <script>
-export default {    
+export default {
+    props : {
+
+    },
     data:() => {
        return {
-            list: Array
+            list: Array,
+            api_ea : import.meta.env.VITE_API_ESPINDOLA_EA
+           
        }
     },
     mounted() {
@@ -56,7 +66,7 @@ export default {
     },
     methods: {
             getListPJ() {
-                axios.get('https://espindolaimobiliaria.com.br/escolhaazul/api/proposal-image/pj/1593')
+                axios.get(this.api_ea + '/api/proposal-image/pj/' + this.id)
                 .then((res) => {
                     console.log({res})
                     this.list = res.data
