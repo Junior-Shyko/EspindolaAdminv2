@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import EaIconBadge from "./ea-icon-badge.vue";
 import { Head } from "@inertiajs/vue3";
 import api from "@/Components/server/api";
 </script>
@@ -37,34 +38,31 @@ import api from "@/Components/server/api";
           >
 
           <template v-slot:item.actions="{ item }">
-            {{ countFiles(item) }}
-              <v-icon
-                icon="fas fa-eye"
-                size="small"
-                class="m-1"
-                @click="eyeProposal(item.raw)"
-                title="Visualizar proposta"
-              >   
-              </v-icon>
 
-              <v-icon
-                icon="fas fa-chart-simple"
-                size="small"
-                class="m-1"
-                title="Análise de proposta"
-                @click="analysisProposal(item.raw)"
-              ></v-icon>
-              <v-badge
-                color="error"
-                content="6">
-                    <v-icon
-                            icon="fas fa-image"
-                            size="small"
-                            class="m-1"
-                            title="Arquivos de proposta"
-                            @click="imageProposal(item.raw)"
-                        ></v-icon>
-            </v-badge>
+            <!-- {{ countFiles(item) }} -->
+         
+            <EaIconBadge
+              :typeMethod="`eyeProposal`"
+              :icon="`fa-eye`"
+              :idlegal="item.raw.legal_id"
+              :title="`Visualizar Arquivos`"
+              :badge="false"
+            />
+
+            <EaIconBadge 
+              :typeMethod="`analysisProposal`"
+              :icon="`fa-chart-simple`"
+              :idlegal="item.raw.legal_id"
+              :title="`Análise de proposta`"
+              :badge="false"
+            />
+            <EaIconBadge
+              :typeMethod="`imageProposal`"
+              :icon="`fa-image`"
+              :idlegal="item.raw.legal_id"
+              :title="`Arquivos de propost`"
+              :badge="true"
+            />           
             </template>
           </v-data-table>
             </v-card>
@@ -112,18 +110,7 @@ export default {
         {
            window.open(route('imagem.tipo.profile', [item.legal_id, 'pj' , 'inquilino']), '_blank')
         },
-        countFiles(item)
-        {
-            console.log({item})
-            axios.get(this.api_escolhaazul + '/api/proposal-image/pj/' + item.raw.legal_id)
-            .then((res) => {
-                let count = 0
-                console.log(typeof res.data)
-                console.log(Object.keys(res.data).length)
-                return Object.keys(res.data).length
-               
-            })
-        }
+       
     },
     mounted() {
         axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
