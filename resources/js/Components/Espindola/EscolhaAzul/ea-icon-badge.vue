@@ -13,7 +13,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  params: { type: String, default: null },
+  typeMethod: { type: String, default: null },
 });
 </script>
 <template>
@@ -23,7 +23,7 @@ const props = defineProps({
         :icon="`fas ${props.icon}`"
         size="small"
         class="m-1"
-        @click="redirectItens('eyeProposal')"
+        @click="redirectItens(props.typeMethod)"
         :title="props.title"
       >
       </v-icon>
@@ -32,7 +32,7 @@ const props = defineProps({
         :icon="`fas ${props.icon}`"
         size="small"
         class="m-1"
-        @click="redirectItens('eyeProposal')"
+        @click="redirectItens(props.typeMethod)"
         :title="props.title"
       >
       </v-icon>
@@ -49,19 +49,19 @@ export default {
     };
   },
   methods: {
-    redirectItens(params) {
-        console.log(params)
-      switch ((params)) {
+    redirectItens(typeMethod) {
+      console.log({typeMethod})
+      switch ((typeMethod)) {
         case "eyeProposal":
           window.open(
             this.api_ea + "?action=view-legal&id=" + btoa(this.idlegal),
             "_blank"
           );
           break;
-        case "eyeProposal":
+        case "analysisProposal":
             window.open(this.api_ea + "view/report/proposal_pj_adm.php?id=" + btoa(this.idlegal), '_blank');
           break;
-        case "eyeProposal":
+        case "imageProposal":
             window.open(route('imagem.tipo.profile', [this.idlegal, 'pj' , 'inquilino']), '_blank')
           break;
 
@@ -70,13 +70,9 @@ export default {
       }
     },
     countFiles(item) {
-      console.log({ item });
       axios
         .get(this.api_escolhaazul + "/api/proposal-image/pj/" + this.idlegal)
         .then((res) => {
-          let count = 0;
-          // console.log(typeof res.data)
-          console.log(Object.keys(res.data).length);
           this.countFilesImages = Object.keys(res.data).length;
         });
     },
