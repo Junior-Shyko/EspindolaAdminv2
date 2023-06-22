@@ -1,4 +1,5 @@
 <script setup>
+import moment from "moment";
 const props = defineProps({
   namefile: {
     type: String,
@@ -33,7 +34,7 @@ const props = defineProps({
           {{ props.namefile }}
         </v-card-title>
 
-        <v-card-subtitle> Data: {{ props.date }} </v-card-subtitle>
+        <v-card-subtitle> Data do envio: {{ dateTime(props.date) }}</v-card-subtitle>
 
         <v-card-actions>
           <v-btn
@@ -89,6 +90,11 @@ export default {
     ],
     api_ea: import.meta.env.VITE_API_ESPINDOLA_EA,
   }),
+  methods: {
+    dateTime(value) {
+      return moment(value).format("DD/MM/YYYY H:mm:s");
+    }, 
+  },
   created() {
     console.log(this.namefile.substr(-3));
   },
