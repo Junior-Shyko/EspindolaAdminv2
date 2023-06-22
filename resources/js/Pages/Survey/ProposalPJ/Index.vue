@@ -2,7 +2,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import EaIconBadge from "@/Components/Espindola/EscolhaAzul/ea-icon-badge.vue";
 import { Head } from "@inertiajs/vue3";
-import api from "@/Components/server/api";
+
 </script>
 <template>
   <AppLayout>
@@ -87,17 +87,19 @@ export default {
           align: "start",
           sortable: true,
           key: "legal_id",
+          width: 50
         },
-        { title: "Nome", align: "end", key: "legal_location_name_corporation" },
-        { title: "Atend.", align: "end", key: "legal_id_user" },
-        { title: "CNPJ", align: "end", key: "legal_location_cnpj" },
-        { title: "E-mail", align: "end", key: "legal_location_email" },
+        { title: "Nome", align: "start", key: "legal_location_name_corporation", width: 300 },
+        { title: "Atend.", align: "end", key: "legal_id_user" ,width: 150 },
+        { title: "CNPJ", align: "end", key: "legal_location_cnpj" ,width: 180},
+        { title: "E-mail", align: "end", key: "legal_location_email", width: 180},
         {
           title: "Garantia",
           align: "end",
           key: "legal_location_type_guarantee",
+          width: 80
         },
-        { title: "Ação", key: "actions", sortable: false },
+        { title: "Ação", key: "actions", sortable: false, width: 180},
       ],
       api_ea: import.meta.env.VITE_ESPINDOLA_EA,
       api_escolhaazul: import.meta.env.VITE_API_ESPINDOLA_EA,

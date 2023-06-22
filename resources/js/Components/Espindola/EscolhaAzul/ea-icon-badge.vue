@@ -17,7 +17,7 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div>
+
     <v-badge color="primary" :content="countFilesImages" v-if="props.badge">
       <v-icon
         :icon="`fas ${props.icon}`"
@@ -36,7 +36,7 @@ const props = defineProps({
         :title="props.title"
       >
       </v-icon>
-  </div>
+
 </template>
 
 <script>

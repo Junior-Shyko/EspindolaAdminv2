@@ -13,13 +13,13 @@ const props = defineProps({
         <v-card width="100%">
           <v-card-title>
             <div class="lg:flex justify-between items-center">
-              <p class="text-2xl font-semibold lg:mb-0 text-sky-600">
+              <p class="text-2xl font-semibold lg:mb-0 text-sky-600 m-1">         
                 Arquivos da proposta
               </p>
             </div>
           </v-card-title>
           <v-row no-gutters>
-            <v-col cols="12" md="4">
+            <!-- <v-col cols="12" md="4">
               <v-btn>Baixar arquivos</v-btn>
             </v-col>
             <v-col cols="12" md="4">
@@ -30,7 +30,7 @@ const props = defineProps({
               >
               Atualizar
             </v-btn>
-            </v-col>
+            </v-col> -->
             <v-divider class="mt-2"></v-divider>
           </v-row>
         </v-card>
