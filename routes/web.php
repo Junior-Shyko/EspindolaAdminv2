@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use App\Models\ContactSite;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\ContactSiteController;
 use App\Http\Controllers\ProposalLegalController;
@@ -60,7 +61,15 @@ Route::prefix('vistoria')->group(function () {
 Route::prefix('escolhaazul')->group(function () {
     Route::controller(ProposalLegalController::class)->group(function () {
         Route::get('proposta-pj', 'index')->name('escolhaazul/proposta-pj');
-        Route::get('imagem-pj', 'image')->name('escolhaazul/proposta-pj');
+
+        // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
+        // Route::post('/salvar-contato', 'store')->name('save.contact');
+        // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
+        // Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
+    });
+    //ARQUIVOS ESCOLHA AZUL
+    Route::controller(FileController::class)->group(function () {
+        Route::get('imagem/{id}/tipo/{type}/profile/{profile}', 'image')->name('imagem.tipo.profile');
         // Route::get('editar-contato/{id}', 'edit')->name('editar-contato');
         // Route::post('/salvar-contato', 'store')->name('save.contact');
         // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
