@@ -17,26 +17,25 @@ const props = defineProps({
 });
 </script>
 <template>
-
-    <v-badge color="primary" :content="countFilesImages" v-if="props.badge">
-      <v-icon
-        :icon="`fas ${props.icon}`"
-        size="small"
-        class="m-1"
-        @click="redirectItens(props.typeMethod)"
-        :title="props.title"
-      >
-      </v-icon>
-    </v-badge>
-    <v-icon v-if="props.badge == false"
-        :icon="`fas ${props.icon}`"
-        size="small"
-        class="m-1"
-        @click="redirectItens(props.typeMethod)"
-        :title="props.title"
-      >
-      </v-icon>
-
+  <v-badge color="primary" :content="countFilesImages" v-if="props.badge">
+    <v-btn
+      :icon="`fas ${props.icon}`"
+      size="small"
+      class="m-1"
+      @click="redirectItens(props.typeMethod)"
+      :title="props.title"
+    >
+    </v-btn>
+  </v-badge>
+  <v-btn
+    v-if="props.badge == false"
+    :icon="`fas ${props.icon}`"
+    size="small"
+    class="m-1"
+    @click="redirectItens(props.typeMethod)"
+    :title="props.title"
+  >
+  </v-btn>
 </template>
 
 <script>
@@ -50,8 +49,8 @@ export default {
   },
   methods: {
     redirectItens(typeMethod) {
-      console.log({typeMethod})
-      switch ((typeMethod)) {
+      console.log({ typeMethod });
+      switch (typeMethod) {
         case "eyeProposal":
           window.open(
             this.api_ea + "?action=view-legal&id=" + btoa(this.idlegal),
@@ -59,17 +58,25 @@ export default {
           );
           break;
         case "analysisProposal":
-            window.open(this.api_ea + "view/report/proposal_pj_adm.php?id=" + btoa(this.idlegal), '_blank');
+          window.open(
+            this.api_ea +
+              "view/report/proposal_pj_adm.php?id=" +
+              btoa(this.idlegal),
+            "_blank"
+          );
           break;
         case "imageProposal":
-            window.open(route('imagem.tipo.profile', [this.idlegal, 'pj' , 'inquilino']), '_blank')
+          window.open(
+            route("imagem.tipo.profile", [this.idlegal, "pj", "inquilino"]),
+            "_blank"
+          );
           break;
 
         default:
           break;
       }
     },
-    countFiles(item) {
+    countFiles() {
       axios
         .get(this.api_escolhaazul + "/api/proposal-image/pj/" + this.idlegal)
         .then((res) => {
@@ -78,7 +85,7 @@ export default {
     },
   },
   created() {
-    this.countFiles(this.idlegal);
+    this.countFiles();
   },
 };
 </script>
