@@ -12,7 +12,7 @@ class UserRepository
     {
         return User::leftJoin('user_meta', 'users.id', '=', 'user_meta.user_id')
                 ->leftJoin('teams', 'users.id', '=', 'teams.user_id')
-                ->select('users.*', 'user_meta.*', 'teams.*', 'teams.name as nameTeam')
+                ->select('users.*', 'users.name as nameUser','user_meta.*', 'teams.*', 'teams.name as nameTeam')
                 ->where('users.id' , '=', $id)->first();
     }
 }
