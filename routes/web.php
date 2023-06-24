@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\UserMetaController;
 use App\Http\Controllers\ContactSiteController;
 use App\Http\Controllers\ProposalLegalController;
 
@@ -56,6 +57,10 @@ Route::prefix('vistoria')->group(function () {
         // Route::patch('editar-contato/{id}', 'update')->name('update.contact');
         // Route::delete('excluir-contato/{id}', 'destroy')->name('destroy.contact');
     });
+});
+
+Route::controller(UserMetaController::class)->group(function () {
+    Route::get('edit/profile/{id}', 'edit')->name('editar.perfil');
 });
 
 Route::prefix('escolhaazul')->group(function () {

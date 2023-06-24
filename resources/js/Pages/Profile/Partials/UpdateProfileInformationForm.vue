@@ -178,10 +178,18 @@ const clearPhotoFileInput = () => {
             <ActionMessage :on="form.recentlySuccessful" class="mr-3">
                 Salvando.
             </ActionMessage>
-
+            <div class="flex space-button">
+                <SecondaryButton class="mr-10">
+                    <Link :href="route('editar.perfil',  $page.props.auth.user.id)">
+                        Editar Dados
+                        </Link>
+                   
+                </SecondaryButton>
             <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Salvar
             </PrimaryButton>
+            </div>
+           
         </template>
     </FormSection>
 </template>
