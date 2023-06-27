@@ -56,7 +56,7 @@ class UserMetaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dump($request->all());
     }
 
     /**

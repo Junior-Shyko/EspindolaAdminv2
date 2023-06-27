@@ -61,6 +61,7 @@ Route::prefix('vistoria')->group(function () {
 
 Route::controller(UserMetaController::class)->group(function () {
     Route::get('edit/profile/{id}', 'edit')->name('editar.perfil');
+    Route::put('update/profile/{id}', 'update');
 });
 
 Route::prefix('escolhaazul')->group(function () {
